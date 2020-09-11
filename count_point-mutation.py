@@ -1,14 +1,7 @@
-with open("rosalind_hamm.txt", "r") as my_file:
-    mutations = 0
-    seqdict = {}
-    for line in my_file:
-    #https://stackoverflow.com/questions/6181935/how-do-you-create-different-variable-names-while-in-a-loop
-        for x in range(1, 3):
-            seqdict["sequence{0}".format(x)] = line
-        print(seqdict)
-        for a,b in (seqdict['sequence1'], seqdict['sequence2']):
-            if a != b:
-                mutations = mutations + 1
-            else:
-                continue
-print(mutations)
+#Code take from: http://saradoesbioinformatics.blogspot.com/2016/06/counting-point-mutations.html
+seq = [line.strip('\n') for line in open('rosalind_hamm.txt')]
+hamming = 0
+for line1, line2 in zip(seq[0],seq[1]):
+    if line1 != line2:
+        hamming += 1
+print(hamming)
