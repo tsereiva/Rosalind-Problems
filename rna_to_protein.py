@@ -16,17 +16,22 @@ RNA_CODON_TABLE ={
 'UGA': 'Stop',  'CGA': 'R',     'AGA': 'R',     'GGA': 'G',
 'UGG': 'W',     'CGG': 'R',     'AGG': 'R',     'GGG': 'G'
 }
+frequency = {}
+for key, value in RNA_CODON_TABLE.items():
+    if value not in frequency:
+        frequency[value] = 1
+    else:
+        frequency[value] += 1
 with open('rosalind_mrna.txt') as my_file:
     mrna = my_file.read().strip()
-#Codon Table from https://github.com/mtarbit/Rosalind-Problems/blob/master/e008-prot.py
-    count = 0
-    for item in range(0, len(mrna), 3):
-        try:
-            if RNA_CODON_TABLE[mrna[item: item+3]] != 'Stop':
-                count += 1
-        except:
-            continue
-
-        else:
-            break
+    count = frequency['Stop']
+    #https://stackoverflow.com/questions/9475241/split-string-every-nth-character
+    #could make protein list more easily, but the current code has an easily adjustable interval
+    n = 1
+    protein =[mrna[i:i+n] for i in range(0, len(mrna), n)]
+    for p in protein:
+        count *= frequency[p]
 print(count%1000000)
+
+#Helped with understading the theory behind calculation:
+#http://saradoesbioinformatics.blogspot.com/2016/07/inferring-mrna-from-protein.html
