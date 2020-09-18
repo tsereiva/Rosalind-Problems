@@ -19,5 +19,5 @@ for i in range(len(introns)):
     full_dna = full_dna.replace(introns[i], '')
 
 seq_exons = Seq(full_dna)
-protein = seq_exons.translate(to_stop = True)
+protein = seq_exons.translate(to_stop=True)
 print(protein)
