@@ -1,17 +1,10 @@
 from Bio import SeqIO
 from Bio.Seq import Seq
-import regex as re
-with open('rosalind_splc.txt') as my_file:
-    dna_data = []
-    for line in my_file:
-        line = line.strip()
-        if not line:
-            continue
-        if line.startswith(">"):
-            continue
-        else:
-            dna_data.append(line)
-
+dna_data = []
+handle = open("rosalind_splc.fasta", "r")
+for record in SeqIO.parse(handle, "fasta"):
+    line = str(record.seq)
+    dna_data.append(line)
 full_dna = dna_data[0]
 introns = dna_data[1:]
 
